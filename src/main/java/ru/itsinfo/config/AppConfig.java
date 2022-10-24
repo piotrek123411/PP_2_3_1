@@ -20,7 +20,6 @@ import java.beans.PropertyVetoException;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableTransactionManagement
-@PropertySource("classpath:db.properties")
 public class AppConfig {
 
     private final Environment env;
@@ -32,10 +31,10 @@ public class AppConfig {
     @Bean
     public DataSource dataSource() throws PropertyVetoException {
         ComboPooledDataSource dataSource = new ComboPooledDataSource();
-        dataSource.setDriverClass(env.getProperty("db.driver"));
-        dataSource.setJdbcUrl(env.getProperty("db.url"));
-        dataSource.setUser(env.getProperty("db.username"));
-        dataSource.setPassword(env.getProperty("db.password"));
+        dataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
+        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/CRUD");
+        dataSource.setUser("root");
+        dataSource.setPassword("root");
         return dataSource;
     }
 
