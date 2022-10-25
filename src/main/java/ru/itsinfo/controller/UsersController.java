@@ -59,28 +59,17 @@ public class UsersController {
 		return "redirect:/users";
 	}
 
-//	@DeleteMapping (value = "/delete")
-//	public String deleteUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, RedirectAttributes attributes) {
-//		if (bindingResult.hasErrors()) {
-//			return "form";
-//		}
-//		userService.deleteUser(user.getId());
-//		attributes.addFlashAttribute("flashMessage", (null == user) ?
-//				"User not exists!" :
-//				"User " + user.getFirstName() + " successfully deleted!");
-//		return "redirect:/users";
-//	}
+	//@GetMapping(value = "/delete")
 
-	@PostMapping(value = "/delete")
-	public String deleteUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-						   RedirectAttributes attributes) {
-		if (bindingResult.hasErrors()) {
-			return "form";
-		}
-
+	@DeleteMapping("/delete")
+	public String deleteUser(@ModelAttribute("user") @Valid User user,
+							 RedirectAttributes attributes) {
 		userService.deleteUser(user.getId());
-		attributes.addFlashAttribute("flashMessage",
-				"User " + user.getFirstName() + " successfully created!");
+
+		attributes.addFlashAttribute("flashMessage", (null == user) ?
+				"User not exists!" :
+				"User " + user.getFirstName() + " successfully deleted!");
+
 		return "redirect:/users";
 	}
 }
