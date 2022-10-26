@@ -45,13 +45,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User deleteUser(long id) {
-        User user = null;
+    public void deleteUser(long id) {
         try {
-            user = userRepository.deleteUser(id);
+            User user = userRepository.deleteUser(id);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        return user;
     }
 }

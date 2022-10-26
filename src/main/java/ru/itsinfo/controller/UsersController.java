@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import ru.itsinfo.model.User;
 import ru.itsinfo.service.UserService;
 
@@ -46,6 +47,14 @@ public class UsersController {
 		return "form";
 	}
 
+
+	@DeleteMapping("/delete/{id}")
+	public String deleteUser(@PathVariable("id") long id, RedirectAttributes attributes) {
+		userService.deleteUser(id);
+		attributes.addFlashAttribute("flashMessage",
+				"User " + userService.readUser(id) + " successfully created!");
+		return "redirect:/users";
+	}
 	@PostMapping()
 	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
 						   RedirectAttributes attributes) {
@@ -61,15 +70,5 @@ public class UsersController {
 
 	//@GetMapping(value = "/delete")
 
-	@DeleteMapping("/delete")
-	public String deleteUser(@ModelAttribute("user") @Valid User user,
-							 RedirectAttributes attributes) {
-		userService.deleteUser(user.getId());
 
-		attributes.addFlashAttribute("flashMessage", (null == user) ?
-				"User not exists!" :
-				"User " + user.getFirstName() + " successfully deleted!");
-
-		return "redirect:/users";
-	}
 }
