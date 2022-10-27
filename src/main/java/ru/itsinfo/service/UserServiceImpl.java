@@ -8,7 +8,7 @@ import ru.itsinfo.model.User;
 import java.util.List;
 
 @Service
-@Transactional
+
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
 
     @Override
     public List<User> getAllUsers() {
@@ -40,15 +41,17 @@ public class UserServiceImpl implements UserService {
         userRepository.updateUser(user);
     }
 
+
     @Override
     public User readUser(long id) {
         return userRepository.readUser(id);
     }
 
+    @Transactional
     @Override
     public void deleteUser(long id) {
         try {
-            User user = userRepository.deleteUser(id);
+            userRepository.deleteUser(id);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
