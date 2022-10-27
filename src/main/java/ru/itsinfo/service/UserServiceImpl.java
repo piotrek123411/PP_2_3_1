@@ -17,7 +17,6 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-
     @Override
     public List<User> getAllUsers() {
         return userRepository.getAllUsers();
@@ -40,7 +39,6 @@ public class UserServiceImpl implements UserService {
     private void updateUser(User user) {
         userRepository.updateUser(user);
     }
-
 
     @Override
     public User readUser(long id) {
