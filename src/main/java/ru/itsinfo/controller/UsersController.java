@@ -5,10 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 import ru.itsinfo.model.User;
 import ru.itsinfo.service.UserService;
-
 import javax.validation.Valid;
 
 @Controller
@@ -24,7 +22,6 @@ public class UsersController {
 	@GetMapping({"", "/", "list"})
 	public String showAllUsers(Model model, @ModelAttribute("flashMessage") String flashAttribute) {
 		model.addAttribute("users", userService.getAllUsers());
-
 		return "list";
 	}
 
@@ -34,41 +31,30 @@ public class UsersController {
 	}
 
 	@GetMapping("/{id}/edit")
-	public String edidtUserForm(@PathVariable(value = "id", required = true) long id, Model model,
-								RedirectAttributes attributes) {
+	public String edidtUserForm(@PathVariable(value = "id", required = true) long id, Model model, RedirectAttributes attributes) {
 		User user = userService.readUser(id);
-
 		if (null == user) {
 			attributes.addFlashAttribute("flashMessage", "User are not exists!");
 			return "redirect:/users";
 		}
-
 		model.addAttribute("user", userService.readUser(id));
 		return "form";
 	}
 
-
 	@DeleteMapping("/delete/{id}")
 	public String deleteUser(@PathVariable("id") long id, RedirectAttributes attributes) {
 		userService.deleteUser(id);
-		attributes.addFlashAttribute("flashMessage",
-				"User " + userService.readUser(id) + " successfully created!");
+		attributes.addFlashAttribute("flashMessage","User " + userService.readUser(id) + " successfully created!");
 		return "redirect:/users";
 	}
 	@PostMapping()
-	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-						   RedirectAttributes attributes) {
+	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, RedirectAttributes attributes) {
 		if (bindingResult.hasErrors()) {
 			return "form";
 		}
-
 		userService.createOrUpdateUser(user);
 		attributes.addFlashAttribute("flashMessage",
 				"User " + user.getFirstName() + " successfully created!");
 		return "redirect:/users";
 	}
-
-	//@GetMapping(value = "/delete")
-
-
 }

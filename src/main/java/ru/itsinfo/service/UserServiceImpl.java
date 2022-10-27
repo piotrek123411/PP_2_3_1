@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.getAllUsers();
     }
 
+    @Transactional
     @Override
     public void createOrUpdateUser(User user) {
         if (0 == user.getId()) {

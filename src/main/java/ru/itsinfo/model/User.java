@@ -27,11 +27,9 @@ public class User {
     private String email;
 
     @NotEmpty(message = "Password should not be empty")
-    //@Min(value = 4, message = "Password should be min 4 characters")
     private String password;
 
     public User() {
-
     }
 
     public User(String firstName, String lastName, String email, String password) {

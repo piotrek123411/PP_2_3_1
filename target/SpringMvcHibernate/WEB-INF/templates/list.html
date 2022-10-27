@@ -35,8 +35,11 @@
         <div class="col" th:text="${user.getLastName()}"/>
         <div class="col text-center" th:text="${user.getEmail()}"/>
         <div class="col text-center">
-            <a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" class="btn btn-secondary" th:classappend="${rowStat.count % 2 == 0 ? 'bg-light text-dark' : 'bg-secondary text-white'}">Edit</a>
-            <a type="button" th:href="@{/users/delete(id=${user.getId()})}" class="btn btn-secondary" th:classappend="${rowStat.count % 2 == 0 ? 'bg-light text-dark' : 'bg-secondary text-white'}">Delete</a>
+<!--            <a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" class="btn btn-secondary" th:classappend="${rowStat.count % 2 == 0 ? 'bg-light text-dark' : 'bg-secondary text-white'}">Edit</a>-->
+            <form th:method="DELETE" th:action="@{/users/delete/{id}(id=${user.getId()})}"><a type="button" th:href="@{/users/{id}/edit(id=${user.getId()})}" class="btn btn-secondary" th:classappend="${rowStat.count % 2 == 0 ? 'bg-light text-dark' : 'bg-secondary text-white'}">Edit</a>
+
+                <input type="submit" th:value="Delete" class="btn btn-secondary" th:classappend="${rowStat.count % 2 == 0 ? 'bg-light text-dark' : 'bg-secondary text-white'}"/>
+            </form>
         </div>
     </div>
 </div>
@@ -50,7 +53,7 @@
 <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
     <div class="toast" style="position: fixed; top: 10rem; right: 10rem;" data-delay="3000">
         <div class="toast-header">
-            <strong class="mr-auto">ITS Info</strong>
+            <strong class="mr-auto">Info</strong>
             <small>Just now</small>
             <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
