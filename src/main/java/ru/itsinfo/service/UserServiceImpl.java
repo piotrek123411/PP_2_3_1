@@ -8,7 +8,6 @@ import ru.itsinfo.model.User;
 import java.util.List;
 
 @Service
-
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -32,11 +31,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private void createUser(User user) {
+    @Transactional
+    @Override
+    public void createUser(User user) {
         userRepository.createUser(user);
     }
 
-    private void updateUser(User user) {
+    @Transactional
+    @Override
+    public void updateUser(User user) {
         userRepository.updateUser(user);
     }
 

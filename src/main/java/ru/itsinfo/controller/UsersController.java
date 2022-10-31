@@ -47,6 +47,7 @@ public class UsersController {
 		attributes.addFlashAttribute("flashMessage","User " + userService.readUser(id) + " successfully created!");
 		return "redirect:/users";
 	}
+
 	@PostMapping()
 	public String saveUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, RedirectAttributes attributes) {
 		if (bindingResult.hasErrors()) {
